@@ -1,12 +1,13 @@
-import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 
+import NormalBrick from '../../../projects/1-feel-the-sphere/assets/textures/NormalMapBrick.jpeg'
+
 // Loading
 const textureLoader = new THREE.TextureLoader()
 
-const normalTexture = textureLoader.load('/textures/NormalMapBrick.jpeg')
+const normalTexture = textureLoader.load(NormalBrick)
 
 // Debug
 const gui = new dat.GUI()
@@ -83,23 +84,23 @@ light3.addColor(light3Color, 'color').onChange(() => pointLight3.color.set(light
  * Sizes
  */
 const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight
+  width: window.innerWidth,
+  height: window.innerHeight
 }
 
 window.addEventListener('resize', () =>
 {
-    // Update sizes
-    sizes.width = window.innerWidth
-    sizes.height = window.innerHeight
+  // Update sizes
+  sizes.width = window.innerWidth
+  sizes.height = window.innerHeight
 
-    // Update camera
-    camera.aspect = sizes.width / sizes.height
-    camera.updateProjectionMatrix()
+  // Update camera
+  camera.aspect = sizes.width / sizes.height
+  camera.updateProjectionMatrix()
 
-    // Update renderer
-    renderer.setSize(sizes.width, sizes.height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+  // Update renderer
+  renderer.setSize(sizes.width, sizes.height)
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
 /**
@@ -120,8 +121,8 @@ scene.add(camera)
  * Renderer
  */
 const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-    alpha: true
+  canvas: canvas,
+  alpha: true
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -142,12 +143,12 @@ const windowHalfX = window.innerWidth / 2
 const windowHalfY = window.innerHeight / 2
 
 function onDocumentMouseMove(event) {
-    mouseX = (event.clientX - windowHalfX)
-    mouseY = (event.clientY - windowHalfY)
+  mouseX = (event.clientX - windowHalfX)
+  mouseY = (event.clientY - windowHalfY)
 }
 
 function updateSphere(event) {
-    sphere.position.y = window.scrollY * .005
+  sphere.position.y = window.scrollY * .005
 }
 
 window.addEventListener('scroll', updateSphere)
@@ -156,26 +157,26 @@ const clock = new THREE.Clock()
 
 const tick = () =>
 {
-    targetX = mouseX * .001
-    targetY = mouseY * .001
+  targetX = mouseX * .001
+  targetY = mouseY * .001
 
-    const elapsedTime = clock.getElapsedTime()
+  const elapsedTime = clock.getElapsedTime()
 
-    // Update objects
-    sphere.rotation.y = .3 * elapsedTime
+  // Update objects
+  sphere.rotation.y = .3 * elapsedTime
 
-    sphere.rotation.y += .5 * (targetX - sphere.rotation.y)
-    sphere.rotation.x += .5 * (targetY - sphere.rotation.x)
-    sphere.position.z += .5 * (targetY - sphere.rotation.x)
+  sphere.rotation.y += .5 * (targetX - sphere.rotation.y)
+  sphere.rotation.x += .5 * (targetY - sphere.rotation.x)
+  sphere.position.z += .5 * (targetY - sphere.rotation.x)
 
-    // Update Orbital Controls
-    // controls.update()
+  // Update Orbital Controls
+  // controls.update()
 
-    // Render
-    renderer.render(scene, camera)
+  // Render
+  renderer.render(scene, camera)
 
-    // Call tick again on the next frame
-    window.requestAnimationFrame(tick)
+  // Call tick again on the next frame
+  window.requestAnimationFrame(tick)
 }
 
 tick()
